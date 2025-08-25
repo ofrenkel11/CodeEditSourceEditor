@@ -33,29 +33,6 @@ public class InlineIntermediatesView: NSView {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    private func drawLineNumbers(_ context: CGContext, dirtyRect: NSRect) {
-//        guard let textView = textView else { return }
-//
-//
-//        context.saveGState()
-//        context.clip(to: dirtyRect)
-//
-//        context.textMatrix = CGAffineTransform(scaleX: 1, y: -1)
-//        for linePosition in textView.layoutManager.linesStartingAt(dirtyRect.minY, until: dirtyRect.maxY) {
-//
-//            let yPos = linePosition.yPos
-//            // Leading padding + (width - linewidth)
-//            let xPos = dirtyRect.maxX - 30
-//
-//            ContextSetHiddenSmoothingStyle(context, 16)
-//
-//            
-//
-//        }
-//        context.restoreGState()
-//    }
-    
-    
     private func drawLineNumbers(_ context: CGContext, dirtyRect: NSRect) {
         guard let textView = textView else { return }
         // Prepare once (outside the loop if possible)
@@ -84,7 +61,14 @@ public class InlineIntermediatesView: NSView {
 
         guard let symbol else { return }
 
+        let coolLines = [109, 111, 130, 152, 153, 154, 156] 
+
+        var idx = 0
         for line in textView.layoutManager.linesStartingAt(dirtyRect.minY, until: dirtyRect.maxY) {
+
+            idx += 1
+            if !coolLines.contains(idx) { continue }
+
             let yPos = line.yPos
             let xPos = dirtyRect.maxX - 30
 
