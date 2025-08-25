@@ -62,13 +62,9 @@ public class InlineIntermediatesView: NSView {
         guard let symbol else { return }
 
         let coolLines = [109, 111, 130, 152, 153, 154, 156] 
-
-        var idx = 0
         for line in textView.layoutManager.linesStartingAt(dirtyRect.minY, until: dirtyRect.maxY) {
 
-            idx += 1
-            print("BINGBONG \(idx) is in \(coolLines)?")
-            if !coolLines.contains(idx) { continue }
+            if !coolLines.contains((line.index + 1)) { continue }
 
             let yPos = line.yPos
             let xPos = dirtyRect.maxX - 30
