@@ -46,6 +46,8 @@ private let text = [
 
 class MockCompletionDelegate: CodeSuggestionDelegate, ObservableObject {
     class Suggestion: CodeSuggestionEntry {
+        var documentation: String? = nil
+        
         var label: String
         var detail: String?
         var pathComponents: [String]?

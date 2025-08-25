@@ -39,6 +39,9 @@ extension TextViewController {
         )
         gutterView.updateWidthIfNeeded()
         scrollView.addFloatingSubview(gutterView, for: .horizontal)
+        
+        inlineIntermediatesView = InlineIntermediatesView(controller: self)
+        scrollView.addFloatingSubview(inlineIntermediatesView, for: .horizontal)
 
         reformattingGuideView = ReformattingGuideView(configuration: configuration)
         scrollView.addFloatingSubview(reformattingGuideView, for: .vertical)
@@ -118,6 +121,7 @@ extension TextViewController {
         ) { [weak self] notification in
             guard let clipView = notification.object as? NSClipView else { return }
             self?.gutterView.needsDisplay = true
+            self?.inlineIntermediatesView.needsDisplay = true
             self?.minimapXConstraint?.constant = clipView.bounds.origin.x
             NotificationCenter.default.post(name: Self.scrollPositionDidUpdateNotification, object: self)
         }
@@ -130,6 +134,7 @@ extension TextViewController {
             queue: .main
         ) { [weak self] _ in
             self?.gutterView.needsDisplay = true
+            self?.inlineIntermediatesView.needsDisplay = true
             self?.emphasisManager?.removeEmphases(for: EmphasisGroup.brackets)
             self?.updateTextInsets()
             NotificationCenter.default.post(name: Self.scrollPositionDidUpdateNotification, object: self)
@@ -148,6 +153,13 @@ extension TextViewController {
             self.gutterView.needsDisplay = true
             self.gutterView.foldingRibbon.needsDisplay = true
             self.reformattingGuideView?.updatePosition(in: self)
+            
+            
+            self.inlineIntermediatesView.frame.size.height = self.textView.frame.height + 10
+            self.inlineIntermediatesView.frame.size.width = self.textView.frame.width // ?
+            self.inlineIntermediatesView.frame.origin.y = self.textView.frame.origin.y - self.scrollView.contentInsets.top
+            self.inlineIntermediatesView.needsDisplay = true
+            
             self.scrollView.needsLayout = true
         }
     }
@@ -175,6 +187,7 @@ extension TextViewController {
                     // Reset content insets and gutter position when appearance changes
                     self.styleScrollView()
                     self.gutterView.frame.origin.y = self.textView.frame.origin.y - self.scrollView.contentInsets.top
+                    self.inlineIntermediatesView.frame.origin.y = self.textView.frame.origin.y - self.scrollView.contentInsets.top
                 }
             }
             .store(in: &cancellables)

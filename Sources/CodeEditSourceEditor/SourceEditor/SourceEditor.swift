@@ -170,6 +170,7 @@ public struct SourceEditor: NSViewControllerRepresentable {
             controller.scrollView.scroll(controller.scrollView.contentView, to: scrollPosition)
             controller.scrollView.reflectScrolledClipView(controller.scrollView.contentView)
             controller.gutterView.needsDisplay = true
+            controller.inlineIntermediatesView.needsDisplay = true
             NotificationCenter.default.post(name: NSView.frameDidChangeNotification, object: controller.textView)
         }
 

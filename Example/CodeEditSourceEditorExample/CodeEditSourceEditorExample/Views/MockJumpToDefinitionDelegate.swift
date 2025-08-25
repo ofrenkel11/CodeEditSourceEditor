@@ -15,13 +15,14 @@ final class MockJumpToDefinitionDelegate: JumpToDefinitionDelegate, ObservableOb
                 url: nil,
                 targetRange: CursorPosition(line: 0, column: 10),
                 typeName: "Start of Document",
-                sourcePreview: "// Comment at start"
+                sourcePreview: "// Comment at start", documentation: nil
             ),
             JumpToDefinitionLink(
                 url: URL(string: "https://codeedit.app/"),
                 targetRange: CursorPosition(line: 1024, column: 10),
                 typeName: "CodeEdit Website",
-                sourcePreview: "https://codeedit.app/"
+                sourcePreview: "https://codeedit.app/",
+                documentation: nil
             )
         ]
     }

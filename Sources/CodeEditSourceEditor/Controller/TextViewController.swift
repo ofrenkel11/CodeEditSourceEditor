@@ -32,6 +32,9 @@ public class TextViewController: NSViewController {
     internal(set) public var textView: TextView!
     var gutterView: GutterView!
     var minimapView: MinimapView!
+    
+    
+    var inlineIntermediatesView: InlineIntermediatesView!
 
     /// The reformatting guide view
     var reformattingGuideView: ReformattingGuideView!
@@ -266,6 +269,7 @@ public class TextViewController: NSViewController {
         self.textView.setText(text)
         self.setUpHighlighter()
         self.gutterView.setNeedsDisplay(self.gutterView.frame)
+        self.inlineIntermediatesView.setNeedsDisplay(self.inlineIntermediatesView.frame)
     }
 
     deinit {
